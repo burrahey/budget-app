@@ -7,3 +7,9 @@
     width: 100px;
     overflow: hidden;
 }
+
+div.header-nav {
+  text-align: center;
+  background: black;
+       color: white;
+}
