@@ -70,8 +70,8 @@ class PurchasesController < ApplicationController
       else
         redirect to "/purchases/#{@purchase.id}"
       end
+    else
+      redirect to '/login'
     end
-  else
-    redirect to '/login'
   end
 end

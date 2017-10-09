@@ -1,7 +1,7 @@
 Description: <%= @purchase.description %> <br />
 Amount: $<%= @purchase.amount %> <br />
 Date Purchased: <%=DateTime.parse(@purchase.date_purchased.to_s).to_date.strftime("%d/%m/%Y")%>
-
+<% if @purchase.user.id == current_user.id %>
 <div id="edit-button">
   <form method="get" action="/purchases/<%=@purchase.id%>/edit">
     <input type="submit" id="Edit Purchase" value="Edit Purchase" />
@@ -14,3 +14,4 @@ Date Purchased: <%=DateTime.parse(@purchase.date_purchased.to_s).to_date.strftim
     <input type="submit" id="Delete Purchase" value="Delete Purchase" />
   </form>
 </div>
+<% end %>

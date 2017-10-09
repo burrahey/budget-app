@@ -43,6 +43,7 @@ class UsersController < ApplicationController
 
   get "/users/summary" do
     if logged_in?
+      @user = current_user
       erb :'/users/summary'
     else
       redirect to '/login'
