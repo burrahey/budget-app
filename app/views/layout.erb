@@ -1,3 +1,14 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="<%= url('/style.css') %>" rel="stylesheet" type="text/css" />
+
+  <title>Budget App</title>
+</head>
+<body>
+
 <% if logged_in? %>
 <a href="/users/summary">Budget Summary</a> | <a href="/purchases">All User Purchases</a> | <a href="/purchases/new">Enter a new purchase</a> | <a href='/logout'>Log out.</a>
 <% else %>
@@ -5,3 +16,5 @@
 <% end %>
 <br />
 <%=yield%>
+</body>
+</html>

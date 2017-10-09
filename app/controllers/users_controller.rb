@@ -44,6 +44,8 @@ class UsersController < ApplicationController
   get "/users/summary" do
     if logged_in?
       @user = current_user
+      @sum = 0
+      @user.purchases.each{|purchase| @sum+= purchase.amount}
       erb :'/users/summary'
     else
       redirect to '/login'

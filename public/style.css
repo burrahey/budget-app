@@ -1,0 +1,8 @@
+#edit-button {
+    width: 100px;
+    float:left;
+}
+#delete-button {
+    width: 100px;
+    overflow: hidden;
+}

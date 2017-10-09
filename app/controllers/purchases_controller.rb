@@ -42,7 +42,11 @@ class PurchasesController < ApplicationController
   get '/purchases/:id/edit' do
     if logged_in?
       @purchase = Purchase.find(params[:id])
-      erb :"purchases/edit"
+      if @purchase.user.id == current_user.id
+        erb :"purchases/edit"
+      else
+        redirect to "/purchases/#{@purchase.id}"
+      end
     else
       redirect to '/login'
     end

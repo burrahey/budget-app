@@ -1,7 +1,0 @@
-#edit-button {
-    width: 300px;
-    float:left; /* add this */
-}
-#delete-button {
-    overflow: hidden; /* if you don't want #second to wrap below #first */
-}
