@@ -2,6 +2,17 @@
 <% @purchases.each do |purchase| %>
 Description: <%= purchase.description %> <br />
 Amount: $<%= purchase.amount %> <br />
-Date Purchased: <%=DateTime.parse(purchase.date_purchased.to_s).to_date.strftime("%d/%m/%Y")%>
+Date Purchased: <%=DateTime.parse(purchase.date_purchased.to_s).to_date.strftime("%d/%m/%Y")%><br />
+<div id="edit-button">
+  <form method="get" action="/purchases/<%=purchase.id%>/edit">
+    <input type="submit" id="Edit Tweet" value="Edit Tweet" />
+  </form>
+</div>
+<div id="delete-button">
+  <form method="post" action="/purchases/<%=purchase.id%>/delete">
+    <input type="hidden" id="hidden" name="_method" value="delete" />
+    <input type="submit" id="Delete Tweet" value="Delete Tweet" />
+  </form>
+</div>
 <br /> <br />
 <% end %>

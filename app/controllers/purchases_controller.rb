@@ -30,13 +30,21 @@ class PurchasesController < ApplicationController
 
   patch '/purchases/:id' do
     @purchase = Purchase.find(params[:id])
-    @purchase.update(params)
-    binding.pry
+    @purchase.description = params[:description]
+    @purchase.amount = params[:amount]
+    @purchase.date_purchased = params[:date_purchased]
+    @purchase.save
+
     redirect to "/purchases/#{@purchase.id}"
   end
 
   delete '/purchases/:id/delete' do
-
+    @purchase = Purchase.find(params[:id])
+    if @purchase.destroy
+      redirect to "/purchases"
+    else
+      redirect to "/purchases/#{@purchase.id}"
+    end
   end
 
 end
