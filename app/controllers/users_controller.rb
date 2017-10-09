@@ -44,8 +44,13 @@ class UsersController < ApplicationController
   get "/summary" do
     if logged_in?
       @user = current_user
-      @sum = 0
-      @user.purchases.each{|purchase| @sum+= purchase.amount}
+
+      @total_sum = 0
+      @user.purchases.each{|purchase| @total_sum+= purchase.amount}
+
+      @monthly_sum = 0
+      @monthly_purchases = Purchase.where("date_purchased > ? AND user_id = ?", Date.today - 30, current_user.id).order(date_purchased: :desc)
+      @monthly_purchases.each{|purchase| @monthly_sum+= purchase.amount}
       erb :summary
     else
       redirect to '/login'

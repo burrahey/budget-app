@@ -1,7 +1,7 @@
 <div>
   Description: <%= @purchase.description %> <br />
   Amount: $<%= @purchase.amount %> <br />
-  Date Purchased: <%=DateTime.parse(@purchase.date_purchased.to_s).to_date.strftime("%d/%m/%Y")%>
+  Date Purchased: <%=DateTime.parse(@purchase.date_purchased.to_s).to_date.strftime("%m/%d/%Y")%>
   <% if @purchase.user.id == current_user.id %>
 </div>
 <div id="edit-button">

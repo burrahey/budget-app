@@ -1,7 +1,7 @@
 class PurchasesController < ApplicationController
   get '/purchases' do
     if logged_in?
-      @purchases = Purchase.all
+      @purchases = Purchase.all.order(date_purchased: :desc)
       erb :'purchases/index'
     else
       redirect to '/login'

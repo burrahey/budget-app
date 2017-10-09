@@ -4,7 +4,7 @@
 
   Amount: $<%= purchase.amount %> <br />
 
-  Date Purchased: <%=DateTime.parse(purchase.date_purchased.to_s).to_date.strftime("%d/%m/%Y")%><br />
+  Date Purchased: <%=DateTime.parse(purchase.date_purchased.to_s).to_date.strftime("%m/%d/%Y")%><br />
 
   <% if purchase.user.id == current_user.id %>
     <div id="edit-button">

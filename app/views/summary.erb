@@ -1,17 +1,17 @@
 <p>
   Your monthly budget is $<%=@user.monthly_budget%> and
-  <% if @user.monthly_budget < @sum %>
-  you're over budget by $<%=@user.monthly_budget - @sum %>.
-  <% elsif @user.monthly_budget == @sum   %>
+  <% if @user.monthly_budget < @monthly_sum %>
+  you're over budget by $<%=@user.monthly_budget - @monthly_sum %>.
+  <% elsif @user.monthly_budget == @monthly_sum   %>
   you've maxed out exactly.
-  <% elsif @sum == 0 %>
+  <% elsif @monthly_sum == 0 %>
   you've haven't tracked any purchases for this month. Get started <a href='/purchases/new'>here!</a>
   <% else %>
-  you're under budget by $<%= @user.monthly_budget - @sum %>.
+  you're under budget by $<%= @user.monthly_budget - @monthly_sum %>.
   <% end %>
 </p>
 <p>
-  Your total amount of purchases equal $<%= @sum %>.
+  You spent $<%= @monthly_sum %> in the last 30 days and a total of $<%= @total_sum %> all time.
 </p>
 
 <% if @user.purchases.length > 0 %>
@@ -25,7 +25,7 @@
 
       Amount: $<%= purchase.amount %> <br />
 
-      Date Purchased: <%=DateTime.parse(purchase.date_purchased.to_s).to_date.strftime("%d/%m/%Y")%><br />
+      Date Purchased: <%=DateTime.parse(purchase.date_purchased.to_s).to_date.strftime("%m/%d/%Y")%><br />
     </div>
     <div id="edit-button">
       <form method="get" action="/purchases/<%=purchase.id%>/edit">
