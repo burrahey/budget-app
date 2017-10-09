@@ -19,11 +19,13 @@ class PurchasesController < ApplicationController
   end
 
   get '/purchases/:id/edit' do
-
+    @purchase = Purchase.find(params[:id])
+    erb :"purchases/edit"
   end
 
   patch '/purchases/:id' do
-
+    @purchase = Purchase.update(params)
+    redirect to "/purchases/#{@purchase.id}"
   end
 
   delete '/purchases/:id/delete' do

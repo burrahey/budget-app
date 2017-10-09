@@ -1,0 +1,14 @@
+<h2>Update your new purchase:</h2>
+Description: <%= purchase.description %> <br />
+Amount: $<%= purchase.amount %>
+<br />
+<form action='/purchases/<%=@purchase.id%>/edit' method='POST'>
+<input type='hidden' id='hidden' name="_method" value='PATCH' />
+<label for="description">Description:</label><br />
+<input type="text" name="description" id='description' />
+<label for="amount">Amount:</label><br />
+<input type="number" name="amount" id='amount' />
+<label for="date">Date Purchased:</label><br />
+<input type="date" name="date_purchased" id='date' />
+<input type='submit' id='submit' value='Record New Purchase'/>
+</form>
