@@ -12,6 +12,8 @@ gem 'pry'
 gem 'bcrypt'
 gem 'tux'
 gem 'rack-flash3'
+gem "paperclip", "~> 5.0.0"
+gem 'bootstrap-sass'
 
 group :test do
   gem 'rspec'
