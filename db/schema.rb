@@ -11,7 +11,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171009010056) do
+ActiveRecord::Schema.define(version: 20171009014908) do
+
+  create_table "photos", force: :cascade do |t|
+    t.string   "title"
+    t.string   "body"
+    t.integer  "purchase_id"
+    t.string   "file_name"
+    t.string   "content_type"
+    t.integer  "file_size"
+    t.datetime "updated_at"
+  end
 
   create_table "purchases", force: :cascade do |t|
     t.string  "description"
