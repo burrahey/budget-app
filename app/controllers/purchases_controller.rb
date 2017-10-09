@@ -29,7 +29,9 @@ class PurchasesController < ApplicationController
   end
 
   patch '/purchases/:id' do
-    @purchase = Purchase.update(params)
+    @purchase = Purchase.find(params[:id])
+    @purchase.update(params)
+    binding.pry
     redirect to "/purchases/#{@purchase.id}"
   end
 

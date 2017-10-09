@@ -3,7 +3,7 @@ class UsersController < ApplicationController
     if !logged_in?
       erb :'/users/signup'
     else
-      redirect to '/users/index'
+      redirect to '/users/summary'
     end
   end
 
@@ -21,7 +21,7 @@ class UsersController < ApplicationController
     if !logged_in?
       erb :'/users/login'
     else
-      redirect to '/users/index'
+      redirect to '/users/summary'
     end
   end
 
@@ -30,7 +30,7 @@ class UsersController < ApplicationController
 
     if @user && @user.authenticate(params[:password])
       session[:user_id] = @user.id
-      redirect to '/users/index'
+      redirect to '/users/summary'
     else
       redirect to '/login'
     end
@@ -41,8 +41,8 @@ class UsersController < ApplicationController
     redirect to "/login"
   end
 
-  get "/users/index" do
-    erb :'/users/index'
+  get "/users/summary" do
+    erb :'/users/summary'
   end
 
 end

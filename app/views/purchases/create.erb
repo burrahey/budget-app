@@ -2,7 +2,7 @@
 <form action='/purchases' method='POST'>
 <label for="description">Description:</label>
 <input type="text" name="description" id='description' /><br />
-<label for="amount">Amount:</label>
+<label for="amount">Amount: $</label>
 <input type="number" step=".01" name="amount" id='amount' /><br />
 <label for="date">Date Purchased:</label>
 <input type="date" name="date_purchased" id='date' value="<%=Time.now.strftime("%Y/%m/%d/")%>"/><br />

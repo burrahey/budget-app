@@ -1,14 +1,16 @@
-<h2>Update your new purchase:</h2>
-Description: <%= purchase.description %> <br />
-Amount: $<%= purchase.amount %>
-<br />
-<form action='/purchases/<%=@purchase.id%>/edit' method='POST'>
+<h2>Update your existing purchase:</h2>
+<h4>Existing Details:</h4>
+Description: <%= @purchase.description %> <br />
+Amount: $<%= @purchase.amount %><br />
+Date Purchased: <%=DateTime.parse(@purchase.date_purchased.to_s).to_date.strftime("%d/%m/%Y")%>
+<h2>Modify details below:</h2>
+<form action='/purchases/<%=@purchase.id%>' method='POST'>
 <input type='hidden' id='hidden' name="_method" value='PATCH' />
-<label for="description">Description:</label><br />
-<input type="text" name="description" id='description' />
-<label for="amount">Amount:</label><br />
-<input type="number" name="amount" id='amount' />
-<label for="date">Date Purchased:</label><br />
-<input type="date" name="date_purchased" id='date' />
-<input type='submit' id='submit' value='Record New Purchase'/>
+<label for="description">Description:</label>
+<input type="text" name="description" id='description' value="<%= @purchase.description %>" /><br />
+<label for="amount">Amount: $</label>
+<input type="number" step=".01" name="amount" id='amount' value="<%= @purchase.amount %>"/><br /
+<label for="date">Date Purchased:</label>
+<input type="date" name="date_purchased" value="DateTime.parse(@purchase.date_purchased.to_s).to_date.strftime("%d/%m/%Y")" id='date' /><br />
+<input type='submit' id='submit' value='Edit Purchase'/>
 </form>
