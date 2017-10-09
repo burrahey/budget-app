@@ -42,7 +42,11 @@ class UsersController < ApplicationController
   end
 
   get "/users/summary" do
-    erb :'/users/summary'
+    if logged_in?
+      erb :'/users/summary'
+    else
+      redirect to '/login'
+    end
   end
 
 end
