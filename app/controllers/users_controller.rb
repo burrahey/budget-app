@@ -3,7 +3,7 @@ class UsersController < ApplicationController
     if !logged_in?
       erb :'/users/signup'
     else
-      redirect to '/users/summary'
+      redirect to '/summary'
     end
   end
 
@@ -11,7 +11,7 @@ class UsersController < ApplicationController
     @user = User.new(params)
     if @user.save
       session[:user_id] = @user.id
-      redirect to '/users/summary'
+      redirect to '/summary'
     else
       redirect to '/signup'
     end
@@ -21,7 +21,7 @@ class UsersController < ApplicationController
     if !logged_in?
       erb :'/users/login'
     else
-      redirect to '/users/summary'
+      redirect to '/summary'
     end
   end
 
@@ -30,7 +30,7 @@ class UsersController < ApplicationController
 
     if @user && @user.authenticate(params[:password])
       session[:user_id] = @user.id
-      redirect to '/users/summary'
+      redirect to '/summary'
     else
       redirect to '/login'
     end
@@ -41,12 +41,12 @@ class UsersController < ApplicationController
     redirect to "/login"
   end
 
-  get "/users/summary" do
+  get "/summary" do
     if logged_in?
       @user = current_user
       @sum = 0
       @user.purchases.each{|purchase| @sum+= purchase.amount}
-      erb :'/users/summary'
+      erb :summary
     else
       redirect to '/login'
     end

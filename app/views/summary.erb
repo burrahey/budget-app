@@ -4,6 +4,8 @@
   you're over budget by $<%=@user.monthly_budget - @sum %>.
   <% elsif @user.monthly_budget == @sum   %>
   you've maxed out exactly.
+  <% elsif @sum == 0 %>
+  you've haven't tracked any purchases for this month. Get started <a href='/purchases/new'>here!</a>
   <% else %>
   you're under budget by $<%= @user.monthly_budget - @sum %>.
   <% end %>
