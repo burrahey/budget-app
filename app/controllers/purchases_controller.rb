@@ -9,8 +9,13 @@ class PurchasesController < ApplicationController
   end
 
   post '/purchases' do
-    @purchase = Purchase.create(params)
-    redirect to "/purchases/#{@purchase.id}"
+    @purchase = Purchase.new(params)
+    @purchase.user = current_user
+    if @purchase.save
+      redirect to "/purchases/#{@purchase.id}"
+    else
+      redirect to "/purchases/new"
+    end
   end
 
   get '/purchases/:id' do

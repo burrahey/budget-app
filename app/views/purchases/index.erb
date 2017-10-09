@@ -1,6 +1,7 @@
 <h2>See all purchases here.</h2>
 <% @purchases.each do |purchase| %>
 Description: <%= purchase.description %> <br />
-Amount: $<%= purchase.amount %>
+Amount: $<%= purchase.amount %> <br />
+Date Purchased: <%=DateTime.parse(purchase.date_purchased.to_s).to_date.strftime("%d/%m/%Y")%>
 <br /> <br />
 <% end %>

@@ -1,2 +1,3 @@
-Description: <%= purchase.description %> <br />
-Amount: $<%= purchase.amount %>
+Description: <%= @purchase.description %> <br />
+Amount: $<%= @purchase.amount %> <br />
+Date Purchased: <%=DateTime.parse(@purchase.date_purchased.to_s).to_date.strftime("%d/%m/%Y")%>
