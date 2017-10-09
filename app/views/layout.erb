@@ -1,2 +1,7 @@
+<% if logged_in? %>
+<a href='/logout'>Log out.</a>
+<% else %>
 <a href='/signup'>Sign up</a> or <a href='/login'>log in</a>.
+<% end %>
+
 <%=yield%>

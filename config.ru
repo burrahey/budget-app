@@ -5,6 +5,6 @@ if ActiveRecord::Migrator.needs_migration?
 end
 
 use UsersController
-user PurchasesController
+use PurchasesController
 use Rack::MethodOverride
 run ApplicationController
