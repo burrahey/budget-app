@@ -41,4 +41,8 @@ class UsersController < ApplicationController
     redirect "/login"
   end
 
+  get "/budget-summary" do
+    erb :'/users/budget_summary'
+  end
+
 end
