@@ -1,0 +1,6 @@
+<h2>See all purchases here.</h2>
+<% @purchases.each do |purchase| %>
+Description: <%= purchase.description %> <br />
+Amount: $<%= purchase.amount %>
+<br /> <br />
+<% end %>
