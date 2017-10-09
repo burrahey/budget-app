@@ -11,7 +11,7 @@ class UsersController < ApplicationController
     @user = User.new(params)
     if @user.save
       session[:user_id] = @user.id
-      redirect to '/purchases'
+      redirect to '/users/summary'
     else
       redirect to '/signup'
     end

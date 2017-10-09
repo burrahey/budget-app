@@ -16,6 +16,15 @@ class PurchasesController < ApplicationController
     end
   end
 
+  get '/purchases/delete' do
+    if logged_in?
+      Purchase.destroy_all(:user_id => current_user.id)
+      redirect to '/users/summary'
+    else
+      redirect to '/login'
+    end
+  end
+
   post '/purchases' do
     if logged_in?
       @purchase = Purchase.new(params)
@@ -78,4 +87,5 @@ class PurchasesController < ApplicationController
       redirect to '/login'
     end
   end
+
 end
