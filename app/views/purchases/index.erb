@@ -1,26 +1,30 @@
 <h2>See all purchases here.</h2>
-<% @purchases.each do |purchase| %>
-  <a href="/purchases/<%=purchase.id%>"> Description: <%= purchase.description %></a> <br />
+<% if @purchases.length > 0 %>
+  <% @purchases.each do |purchase| %>
+    <a href="/purchases/<%=purchase.id%>"> Description: <%= purchase.description %></a> <br />
 
-  Amount: $<%= purchase.amount %> <br />
+    Amount: $<%= purchase.amount %> <br />
 
-  Date Purchased: <%=DateTime.parse(purchase.date_purchased.to_s).to_date.strftime("%m/%d/%Y")%><br />
+    Date Purchased: <%=DateTime.parse(purchase.date_purchased.to_s).to_date.strftime("%m/%d/%Y")%><br />
 
-  <% if purchase.user.id == current_user.id %>
-    <div id="edit-button">
-      <form method="get" action="/purchases/<%=purchase.id%>/edit">
-        <input type="submit" id="Edit Purchase" value="Edit Purchase" />
-      </form>
-    </div>
+    <% if purchase.user.id == current_user.id %>
+      <div id="edit-button">
+        <form method="get" action="/purchases/<%=purchase.id%>/edit">
+          <input type="submit" id="Edit Purchase" value="Edit Purchase" />
+        </form>
+      </div>
 
-    <div id="delete-button">
-      <form method="post" action="/purchases/<%=purchase.id%>/delete">
-        <input type="hidden" id="hidden" name="_method" value="delete" />
-        <input type="submit" id="Delete Purchase" value="Delete Purchase" />
-      </form>
-    </div>
-    <br /> <br />
-  <% else %>
-    <br /><br />
+      <div id="delete-button">
+        <form method="post" action="/purchases/<%=purchase.id%>/delete">
+          <input type="hidden" id="hidden" name="_method" value="delete" />
+          <input type="submit" id="Delete Purchase" value="Delete Purchase" />
+        </form>
+      </div>
+      <br /> <br />
+    <% else %>
+      <br /><br />
+    <% end %>
   <% end %>
+<% else %>
+  No one's recorded a purchase yet! Click <a href="/purchases/new">here</a> to record a purchase.
 <% end %>

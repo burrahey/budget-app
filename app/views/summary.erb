@@ -19,13 +19,13 @@
 
   <% @user.purchases.each do |purchase| %>
     <div>
-      <a href="/purchases/<%=purchase.id%>">Purchase ID: <%= purchase.id %> <br /></a>
-
-      Description: <%= purchase.description %> <br />
+      <a href="/purchases/<%=purchase.id%>">Description: <%= purchase.description %></a> <br />
 
       Amount: $<%= purchase.amount %> <br />
 
-      Date Purchased: <%=DateTime.parse(purchase.date_purchased.to_s).to_date.strftime("%m/%d/%Y")%><br />
+      Date Purchased: <%=DateTime.parse(purchase.date_purchased.to_s).to_date.strftime("%m/%d/%Y")%>
+      <% if (Date.today - 30) > purchase.date_purchased %> (not counted in this month's budget) <% end %>
+      <br />
     </div>
     <div id="edit-button">
       <form method="get" action="/purchases/<%=purchase.id%>/edit">
