@@ -21,7 +21,7 @@ class UsersController < ApplicationController
     if !logged_in?
       erb :'/users/login'
     else
-      redirect to '/purchases'
+      redirect to '/budget-summary'
     end
   end
 
