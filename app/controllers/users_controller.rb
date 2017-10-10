@@ -53,8 +53,7 @@ class UsersController < ApplicationController
       @user.purchases.each{|purchase| @total_sum+= purchase.amount}
 
       @monthly_sum = 0
-      @monthly_purchases = Purchase.where("date_purchased > ? AND user_id = ?", Date.today - 30, current_user.id).order(date_purchased: :desc)
-      @monthly_purchases.each{|purchase| @monthly_sum+= purchase.amount}
+      Purchase.monthly_purchases(current_user.id).each{|purchase| @monthly_sum+= purchase.amount}
       erb :summary
     else
       flash[:message] = "You must log in first!"
