@@ -11,7 +11,6 @@ class UsersController < ApplicationController
   post '/signup' do
     @user = User.new(params)
     if @user.save
-      flash[:message] = "Welcome, #{@user.name}!"
       session[:user_id] = @user.id
       redirect to '/summary'
     else
@@ -33,7 +32,6 @@ class UsersController < ApplicationController
 
     if @user && @user.authenticate(params[:password])
       session[:user_id] = @user.id
-      flash[:message] = "Howdy, #{@user.username}! You look nice today."
       redirect to '/summary'
     else
       flash[:message] = "You must log in first!"
