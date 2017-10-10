@@ -18,5 +18,5 @@ Date Purchased: <%=DateTime.parse(@purchase.date_purchased.to_s).to_date.strftim
   <label for="date">Date Purchased:</label>
   <input type="date" name="date_purchased" value="DateTime.parse(@purchase.date_purchased.to_s).to_date.strftime("%d/%m/%Y")" id='date' /><br />
 
-  <input type='submit' id='submit' value='Edit Purchase'/>
+  <input type='submit' class="button" id='submit' value='Edit Purchase'/>
 </form>

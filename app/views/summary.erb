@@ -29,14 +29,14 @@
     </div>
     <div id="edit-button">
       <form method="get" action="/purchases/<%=purchase.id%>/edit">
-        <input type="submit" id="Edit Purchase" value="Edit Purchase" />
+        <input type="submit" class="button" id="Edit Purchase" value="Edit Purchase" />
       </form>
     </div>
 
     <div id="delete-button">
       <form method="post" action="/purchases/<%=purchase.id%>/delete">
         <input type="hidden" id="hidden" name="_method" value="delete" />
-        <input type="submit" id="Delete Purchase" value="Delete Purchase" />
+        <input type="submit" class="button" id="Delete Purchase" value="Delete Purchase" />
       </form>
     </div> <br /> <br />
   <% end %>
