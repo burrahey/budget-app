@@ -36,7 +36,7 @@ class PurchasesController < ApplicationController
         flash[:message] = "Successfully recorded purchase."
         redirect to "/purchases/#{@purchase.id}"
       else
-        flash[:message] = "Oops, couldn't save that purchase. Try again!"
+        flash[:message] = "Oops, couldn't save that purchase. @purchase.errors Try again!"
         redirect to "/purchases/new"
       end
     else
