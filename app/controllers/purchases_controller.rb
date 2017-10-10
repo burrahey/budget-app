@@ -28,9 +28,11 @@ class PurchasesController < ApplicationController
   post '/purchases' do
     if logged_in?
       @purchase = Purchase.new(params)
-      @purchase.user = current_user
+
       if @purchase.save
         redirect to "/purchases/#{@purchase.id}"
+        @photo.purchase_id = @purchase.id
+        @photo.save
       else
         redirect to "/purchases/new"
       end
