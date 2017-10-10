@@ -1,21 +1,19 @@
+<h3>Summary:</h3>
 <p>
   Your monthly budget is $<%=@user.monthly_budget%> and
   <% if @user.monthly_budget < @monthly_sum %>
-  you're over budget by $<%=@user.monthly_budget - @monthly_sum %>.
+  you're over budget by $<%=@user.monthly_budget - @monthly_sum %>. You should try and cut down on spending.
   <% elsif @user.monthly_budget == @monthly_sum   %>
-  you've maxed out exactly.
+  you've used up your entire budget for the month. Tread carefully!
   <% elsif @monthly_sum == 0 %>
   you've haven't tracked any purchases for this month. Get started <a href='/purchases/new'>here!</a>
   <% else %>
-  you're under budget by $<%= @user.monthly_budget - @monthly_sum %>.
-  <% end %>
-</p>
-<p>
-  You spent $<%= @monthly_sum %> in the last 30 days and a total of $<%= @total_sum %> all time.
-</p>
+  you're under budget by $<%= @user.monthly_budget - @monthly_sum %>. Great job!
+  <% end %>  You spent $<%= @monthly_sum %> in the last 30 days and a total of $<%= @total_sum %> all time.
 
+</p>
 <% if @user.purchases.length > 0 %>
-  <h2>See all of your purchases below:</h2>
+  <h3>See all of your purchases below:</h3>
 
   <% @user.purchases.each do |purchase| %>
     <div>
@@ -42,4 +40,4 @@
   <% end %>
 <% end %>
 
-<a href='/purchases/delete'>Clear all purchases.</a>
+<a href='/purchases/delete'>Clear all of your purchases.</a>

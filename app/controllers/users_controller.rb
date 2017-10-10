@@ -3,6 +3,7 @@ class UsersController < ApplicationController
     if !logged_in?
       erb :'/users/signup'
     else
+      flash[:message] = "You're already logged in - try signing out to create another account."
       redirect to '/summary'
     end
   end
@@ -10,9 +11,11 @@ class UsersController < ApplicationController
   post '/signup' do
     @user = User.new(params)
     if @user.save
+      flash[:message] = "Welcome, #{@user.name}!"
       session[:user_id] = @user.id
       redirect to '/summary'
     else
+      flash[:message] = "Sorry, that wasn't valid input. Try again"
       redirect to '/signup'
     end
   end
@@ -30,14 +33,17 @@ class UsersController < ApplicationController
 
     if @user && @user.authenticate(params[:password])
       session[:user_id] = @user.id
+      flash[:message] = "Howdy, #{@user.username}! You look nice today."
       redirect to '/summary'
     else
+      flash[:message] = "You must log in first!"
       redirect to '/login'
     end
   end
 
   get "/logout" do
     session.clear
+    flash[:message] = "Successfully logged out!"
     redirect to "/login"
   end
 
@@ -53,6 +59,7 @@ class UsersController < ApplicationController
       @monthly_purchases.each{|purchase| @monthly_sum+= purchase.amount}
       erb :summary
     else
+      flash[:message] = "You must log in first!"
       redirect to '/login'
     end
   end

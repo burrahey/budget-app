@@ -19,7 +19,8 @@ a:hover {
   color: coral;
 }
 
-/*////// SHOW PAGE //////*/
+/*////// FORMS //////*/
+
 .button {
 	font: bold 13px Helvetica, Arial, clean, sans-serif !important;
 	color: white;
@@ -42,6 +43,15 @@ a:hover {
     width: 120px;
     overflow: hidden;
 }
+
+.container {
+        width: 170px;
+        clear: both;
+    }
+.container input {
+        width: 100%;
+        clear: both;
+    }
 
 /*////// NAV //////*/
 div.header-nav {

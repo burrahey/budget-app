@@ -4,6 +4,7 @@ class PurchasesController < ApplicationController
       @purchases = Purchase.all.order(date_purchased: :desc)
       erb :'purchases/index'
     else
+      flash[:message] = "You must log in first!"
       redirect to '/login'
     end
   end
@@ -12,6 +13,7 @@ class PurchasesController < ApplicationController
     if logged_in?
       erb :'purchases/create'
     else
+      flash[:message] = "You must log in first!"
       redirect to '/login'
     end
   end
@@ -21,6 +23,7 @@ class PurchasesController < ApplicationController
       Purchase.destroy_all(:user_id => current_user.id)
       redirect to '/users/summary'
     else
+      flash[:message] = "You must log in first!"
       redirect to '/login'
     end
   end
@@ -30,11 +33,14 @@ class PurchasesController < ApplicationController
       @purchase = Purchase.new(params)
       @purchase.user_id = current_user.id
       if @purchase.save
+        flash[:message] = "Successfully recorded purchase."
         redirect to "/purchases/#{@purchase.id}"
       else
+        flash[:message] = "Oops, couldn't save that purchase. Try again!"
         redirect to "/purchases/new"
       end
     else
+      flash[:message] = "You must log in first!"
       redirect to '/login'
     end
   end
@@ -44,6 +50,7 @@ class PurchasesController < ApplicationController
       @purchase = Purchase.find(params[:id])
       erb :'purchases/show'
     else
+      flash[:message] = "You must log in first!"
       redirect to '/login'
     end
   end
@@ -57,6 +64,7 @@ class PurchasesController < ApplicationController
         redirect to "/purchases/#{@purchase.id}"
       end
     else
+      flash[:message] = "You must log in first!"
       redirect to '/login'
     end
   end
@@ -67,10 +75,15 @@ class PurchasesController < ApplicationController
       @purchase.description = params[:description]
       @purchase.amount = params[:amount]
       @purchase.date_purchased = params[:date_purchased]
-      @purchase.save
-
-      redirect to "/purchases/#{@purchase.id}"
+      if @purchase.save
+        flash[:message] = "Successfully edited purchase."
+        redirect to "/purchases/#{@purchase.id}"
+      else
+        flash[:message] = "Sorry, that wasn't valid entry. Try again."
+        redirect to "/purchases/#{@purchase.id}/edit"
+      end
     else
+      flash[:message] = "You must log in first!"
       redirect to '/login'
     end
   end
@@ -79,11 +92,14 @@ class PurchasesController < ApplicationController
     if logged_in?
       @purchase = Purchase.find(params[:id])
       if @purchase.destroy
+        flash[:message] = "Successfully destroyed record of purchase"
         redirect to "/purchases"
       else
+        flash[:message] = "Couldn't delete purchase"
         redirect to "/purchases/#{@purchase.id}"
       end
     else
+      flash[:message] = "You must log in first!"
       redirect to '/login'
     end
   end
