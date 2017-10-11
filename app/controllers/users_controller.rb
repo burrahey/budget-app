@@ -48,12 +48,8 @@ class UsersController < ApplicationController
   get "/summary" do
     if logged_in?
       @user = current_user
-
-      @total_sum = 0
-      @user.purchases.each{|purchase| @total_sum+= purchase.amount}
-
-      @monthly_sum = 0
-      Purchase.monthly_purchases(current_user.id).each{|purchase| @monthly_sum+= purchase.amount}
+      @total_sum = Purchase.total_sum(current_user)
+      @monthly_sum = Purchase.monthly_sum(current_user)
       erb :summary
     else
       flash[:message] = "You must log in first!"
