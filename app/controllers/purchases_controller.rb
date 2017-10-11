@@ -93,7 +93,7 @@ class PurchasesController < ApplicationController
       @purchase = Purchase.find(params[:id])
       if @purchase.destroy
         flash[:message] = "Successfully destroyed record of purchase"
-        redirect to "/purchases"
+        redirect to "/summary"
       else
         flash[:message] = "Couldn't delete purchase"
         redirect to "/purchases/#{@purchase.id}"
