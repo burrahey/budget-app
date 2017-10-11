@@ -28,7 +28,7 @@ class UsersController < ApplicationController
   end
 
   post '/login' do
-    @user = User.find_by(username: params[:username])
+    @user ||= User.find_by(username: params[:username])
 
     if @user && @user.authenticate(params[:password])
       session[:user_id] = @user.id
@@ -43,18 +43,6 @@ class UsersController < ApplicationController
     session.clear
     flash[:message] = "Successfully logged out!"
     redirect to "/login"
-  end
-
-  get "/summary" do
-    if logged_in?
-      @user = current_user
-      @total_sum = Purchase.total_sum(current_user)
-      @monthly_sum = Purchase.monthly_sum(current_user)
-      erb :summary
-    else
-      flash[:message] = "You must log in first!"
-      redirect to '/login'
-    end
   end
 
 end

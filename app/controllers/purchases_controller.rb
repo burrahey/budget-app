@@ -1,7 +1,7 @@
 class PurchasesController < ApplicationController
   get '/purchases' do
     if logged_in?
-      @purchases = Purchase.all.order(date_purchased: :desc)
+      @purchases ||= Purchase.all.order(date_purchased: :desc)
       erb :'purchases/index'
     else
       flash[:message] = "You must log in first!"
@@ -21,7 +21,7 @@ class PurchasesController < ApplicationController
   get '/purchases/delete' do
     if logged_in?
       Purchase.destroy_all(:user_id => current_user.id)
-      redirect to '/users/summary'
+      redirect to '/summary'
     else
       flash[:message] = "You must log in first!"
       redirect to '/login'

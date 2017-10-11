@@ -18,6 +18,18 @@ class ApplicationController < Sinatra::Base
     erb :index
   end
 
+  get "/summary" do
+    if logged_in?
+      @user ||= current_user
+      @total_sum ||= Purchase.total_sum(@user)
+      @monthly_sum ||= Purchase.monthly_sum(@user)
+      erb :summary
+    else
+      flash[:message] = "You must log in first!"
+      redirect to '/login'
+    end
+  end
+
   helpers do
     def logged_in?
       !!session[:user_id]
