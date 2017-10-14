@@ -11,7 +11,7 @@
   </div>
 
   <div id="delete-button">
-    <form method="post" action="/purchases/<%=@purchase.id%>/delete">
+    <form method="post" action="/purchases/<%=@purchase.id%>">
       <input type="hidden" id="hidden" name="_method" value="delete" />
       <input type="submit" class="button" id="Delete Purchase" value="Delete Purchase" />
     </form>

@@ -30,7 +30,7 @@
     </div>
 
     <div id="delete-button">
-      <form method="post" action="/purchases/<%=purchase.id%>/delete">
+      <form method="post" action="/purchases/<%=purchase.id%>">
         <input type="hidden" id="hidden" name="_method" value="delete" />
         <input type="submit" class="button" id="Delete Purchase" value="Delete Purchase" />
       </form>
@@ -38,6 +38,6 @@
   <% end %>
   <form method="post" action="/purchases">
     <input type="hidden" id="hidden" name="_method" value="delete" />
-    <input type="submit" class="button" id="Delete All Purchases" value="Delete Purchase" />
+    <input type="submit" class="button" id="Delete All Purchases" value="Delete All Purchases" />
   </form>
 <% end %>
