@@ -1,96 +1,79 @@
 class PurchasesController < ApplicationController
   get '/purchases' do
-    if logged_in?
-      @purchases ||= Purchase.all.order(date_purchased: :desc)
-      erb :'purchases/index'
-    else
-      flash[:message] = "You must log in first!"
-      redirect to '/login'
-    end
+    authenticate_user
+    @purchases = Purchase.all.order(date_purchased: :desc)
+    erb :'purchases/index'
   end
 
   get '/purchases/new' do
-    if logged_in?
-      erb :'purchases/create'
-    else
-      flash[:message] = "You must log in first!"
-      redirect to '/login'
-    end
+    authenticate_user
+    erb :'purchases/create'
   end
 
-  get '/purchases/delete' do
-    if logged_in?
-      Purchase.destroy_all(:user_id => current_user.id)
-      redirect to '/summary'
-    else
-      flash[:message] = "You must log in first!"
-      redirect to '/login'
-    end
+  delete '/purchases' do
+    authenticate_user
+    current_user.purchases.destroy_all
+    redirect to '/summary'
   end
 
   post '/purchases' do
-    if logged_in?
-      @purchase = Purchase.new(params)
-      @purchase.user_id = current_user.id
-      if @purchase.save
-        flash[:message] = "Successfully recorded purchase."
-        redirect to "/purchases/#{@purchase.id}"
-      else
-        flash[:message] = "Oops, couldn't save that purchase. @purchase.errors Try again!"
-        redirect to "/purchases/new"
-      end
+    authenticate_user
+    @purchase = current_user.purchases.build(params)
+    if @purchase.save
+      flash[:message] = "Successfully recorded purchase."
+      redirect to "/purchases/#{@purchase.id}"
     else
-      flash[:message] = "You must log in first!"
-      redirect to '/login'
+      flash[:message] = "Oops, couldn't save that purchase. @purchase.errors Try again!"
+      redirect to "/purchases/new"
     end
   end
 
   get '/purchases/:id' do
-    if logged_in?
-      @purchase = Purchase.find(params[:id])
+    authenticate_user
+    if @purchase = Purchase.find_by(id: params[:id])
       erb :'purchases/show'
     else
-      flash[:message] = "You must log in first!"
-      redirect to '/login'
+      flash[:message] = "Sorry that Purchase doesn't exist"
+      redirect to '/summary'
     end
   end
 
   get '/purchases/:id/edit' do
-    if logged_in?
-      @purchase = Purchase.find(params[:id])
-      if @purchase.user.id == current_user.id
-        erb :"purchases/edit"
-      else
-        redirect to "/purchases/#{@purchase.id}"
-      end
+    authenticate_user
+    @purchase = Purchase.find_by(id: params[:id])
+    if @purchase && @purchase.user == current_user
+      erb :"purchases/edit"
+    elsif @purchase && @purchase.user != current_user
+      redirect to "/purchases/#{@purchase.id}"
     else
-      flash[:message] = "You must log in first!"
-      redirect to '/login'
+      flash[:message] = "Sorry that Purchase doesn't exist"
+      redirect to "/summary"
     end
   end
 
   patch '/purchases/:id' do
-    if logged_in?
-      @purchase = Purchase.find(params[:id])
-      @purchase.description = params[:description]
-      @purchase.amount = params[:amount]
-      @purchase.date_purchased = params[:date_purchased]
-      if @purchase.save
+    authenticate_user
+    @purchase = Purchase.find_by(params[:id])
+    if @purchase && @purchase.user == current_user
+      if @purchase.update(params[:purchase])
         flash[:message] = "Successfully edited purchase."
         redirect to "/purchases/#{@purchase.id}"
       else
         flash[:message] = "Sorry, that wasn't valid entry. Try again."
         redirect to "/purchases/#{@purchase.id}/edit"
       end
+    elsif @purchase && @purchase.user != current_user
+      redirect to "/purchases/#{@purchase.id}"
     else
-      flash[:message] = "You must log in first!"
-      redirect to '/login'
+      flash[:message] = "Sorry that Purchase doesn't exist"
+      redirect to "/summary"
     end
   end
 
-  delete '/purchases/:id/delete' do
-    if logged_in?
-      @purchase = Purchase.find(params[:id])
+  delete '/purchases/:id' do
+    authenticate_user
+    @purchase = Purchase.find_by(params[:id])
+    if @purchase && @purchase.user == current_user
       if @purchase.destroy
         flash[:message] = "Successfully destroyed record of purchase"
         redirect to "/summary"
@@ -98,10 +81,11 @@ class PurchasesController < ApplicationController
         flash[:message] = "Couldn't delete purchase"
         redirect to "/purchases/#{@purchase.id}"
       end
+    elsif @purchase && @purchase.user != current_user
+      redirect to "/purchases/#{@purchase.id}"
     else
-      flash[:message] = "You must log in first!"
-      redirect to '/login'
+      flash[:message] = "Sorry that Purchase doesn't exist"
+      redirect to "/summary"
     end
   end
-
 end

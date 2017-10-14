@@ -9,16 +9,12 @@ Date Purchased: <%=DateTime.parse(@purchase.date_purchased.to_s).to_date.strftim
 <div class="container">
   <form action='/purchases/<%=@purchase.id%>' method='POST'>
     <input type='hidden' id='hidden' name="_method" value='PATCH' />
-
     <label for="description">Description:</label>
-    <input type="text" name="description" id='description' value="<%= @purchase.description %>" /><br />
-
+    <input type="text" name="purchase[description]" id='description' value="<%= @purchase.description %>" /><br />
     <label for="amount">Amount: $</label>
-    <input type="number" step=".01" name="amount" id='amount' value="<%= @purchase.amount %>"/><br />
-
+    <input type="number" step=".01" name="purchase[amount]" id='amount' value="<%= @purchase.amount %>"/><br />
     <label for="date">Date Purchased:</label>
-    <input type="date" name="date_purchased" value="DateTime.parse(@purchase.date_purchased.to_s).to_date.strftime("%d/%m/%Y")" id='date' /><br /><br />
-
+    <input type="date" name="purchase[date_purchased]" value="DateTime.parse(@purchase.date_purchased.to_s).to_date.strftime("%d/%m/%Y")" id='date' /><br /><br />
     <input type='submit' class="button" id='submit' value='Edit Purchase'/>
   </form>
 </div>
